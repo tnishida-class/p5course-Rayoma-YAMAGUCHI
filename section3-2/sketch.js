@@ -1,6 +1,4 @@
 let x, y, vy;
-const g = 1.5;
-const vyMax = 30;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -12,13 +10,15 @@ function setup(){
 function draw(){
   background(160, 192, 255);
   ellipse(x, y, 50);
-  y += vy;
-  vy = constrain(vy + g, -vyMax, vyMax);
+  // y += vy;
+  // vy = constrain(vy + g, -vyMax, vyMax);
   if(keyIsDown(LEFT_ARROW)){ x -= 5; }
   if(keyIsDown(RIGHT_ARROW)){ x += 5; }
+  if(keyIsDown(" ".charCodeAt(0))){ y -= vy; }
+
   if(x < 0){x = 0;}
   if(x > width){x = width;}
-  if(y < 0 || y > height){ vy = -1 * vy; }
+  if(y < 0 ){ y = height; }
 }
 
    function windowResized(){
