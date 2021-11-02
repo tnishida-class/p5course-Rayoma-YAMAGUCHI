@@ -1,24 +1,29 @@
 let x, y, vy;
+const g = 1; // 重力加速度
+const vyMax = 30;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
   x = width / 2;
-  y = height / 2;
+  y = height - 10;
   vy = 8;
 }
 
 function draw(){
   background(160, 192, 255);
-  ellipse(x, y, 50);
-  // y += vy;
-  // vy = constrain(vy + g, -vyMax, vyMax);
+  ellipse(x, y, 20);
+
   if(keyIsDown(LEFT_ARROW)){ x -= 5; }
   if(keyIsDown(RIGHT_ARROW)){ x += 5; }
-  if(keyIsDown(" ".charCodeAt(0))){ y -= vy; }
 
-  if(x < 0){x = 0;}
-  if(x > width){x = width;}
-  if(y < 0 ){ y = height; }
+  y += vy;
+  vy = constrain(vy + g, -vyMax, vyMax);
+
+  if(y >= height - 10 && keyIsDown(" ".charCodeAt(0))){ vy = -20; }
+
+  if(y > height - 10){ vy = 0; }
+  x = constrain(x, 0, width);
+  y = constrain(y, 0, height -10);
 }
 
    function windowResized(){
