@@ -4,9 +4,10 @@ function setup(){
   createCanvas(300, 100);
   background(200);
   fill(0);
-  crossmark(10, 10, 90, 90);
-  ngmark(150, 50, 80);
-  star(250, 50, 40);
+  //crossmark(10, 10, 90, 90);
+  //ngmark(150, 50, 80);
+  //star(250, 50, 40);
+  regularPolygon(3, 250, 50, 40);
 }
 
 function crossmark(x1, y1, x2, y2){
@@ -34,3 +35,14 @@ function star(cx, cy, r){
   }
   endShape(CLOSE);
 }
+
+  function regularPolygon(n, cx, cy, r){
+    beginShape();
+    for(var i = 0; i < n; i++){
+      let theta = PI * i * 2 / n - HALF_PI;
+      let x = cx + cos(theta) * r;
+      let y = cy + sin(theta) * r;
+      vertex(x,y);
+    }
+    endShape(CLOSE);
+  }
