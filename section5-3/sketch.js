@@ -2,8 +2,13 @@
 function setup(){
   createCanvas(200, 200);
   calendar(2019, 10);
-  let y = 2001;
-  let
+  let y = 2021;
+  let m =  11;
+  let d = 9;
+  let days = dayOfYear(y, m, d);
+
+  console.log (y, m, d);
+  console.log (days);
 
   // isLeapYear の動作確認のため console に出力しています
   for(let i = 2000; i <= 2100; i++){
@@ -59,7 +64,7 @@ function dayOfYear(y, m, d){
 
 function dayOfWeek(y, m, d){
   // BLANK[2]
-  
+
 }
 
 function dayOfWeekAsString(dow){
