@@ -2,14 +2,16 @@
 function setup(){
   createCanvas(200, 200);
   calendar(2019, 10);
+  let y = 2001;
+  let
 
   // isLeapYear の動作確認のため console に出力しています
   for(let i = 2000; i <= 2100; i++){
     if(isLeapYear(i)){
-      console.log(i + "年はうるう年です");
+    //  console.log(i + "年はうるう年です");
     }
     else{
-      console.log(i + "年はうるう年ではありません");
+    //  console.log(i + "年はうるう年ではありません");
     }
   }
 }
@@ -27,6 +29,12 @@ function isLeapYear(y){
 
 function daysInYear(y){
   // BLANK[1]
+  if ((y % 4 == 0) && (y % 100 != 0) || (y % 400 == 0)) {
+    return 366;
+  }
+  else{
+    return 365;
+  }
 }
 
 function daysInMonth(y, m){
@@ -51,6 +59,7 @@ function dayOfYear(y, m, d){
 
 function dayOfWeek(y, m, d){
   // BLANK[2]
+  
 }
 
 function dayOfWeekAsString(dow){
