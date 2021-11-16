@@ -2,23 +2,6 @@
 function setup(){
   createCanvas(200, 200);
   calendar(2019, 10);
-  let y = 2021;
-  let m =  11;
-  let d = 9;
-  let days = dayOfYear(y, m, d);
-
-  console.log (y, m, d);
-  console.log (days);
-
-  // isLeapYear の動作確認のため console に出力しています
-  for(let i = 2000; i <= 2100; i++){
-    if(isLeapYear(i)){
-    //  console.log(i + "年はうるう年です");
-    }
-    else{
-    //  console.log(i + "年はうるう年ではありません");
-    }
-  }
 }
 
 function calendar(y, m){
@@ -34,7 +17,7 @@ function isLeapYear(y){
 
 function daysInYear(y){
   // BLANK[1]
-  if ((y % 4 == 0) && (y % 100 != 0) || (y % 400 == 0)) {
+  if (isLeapYear(y)) {
     return 366;
   }
   else{
@@ -64,10 +47,28 @@ function dayOfYear(y, m, d){
 
 function dayOfWeek(y, m, d){
   // BLANK[2]
-
+  let w, i;
+  // base_day = dayOfYear(1977, 1, 1) Then, w = 6;
+  let defference_days = 0;
+  if(y >= 1977){
+    for (i = 0; i < y - 1977; i++) {
+      defference_days += daysInYear(i + 1977);
+    }
+    defference_days += dayOfYear(y, m, d) - 1;
+    return defference_days % 7 + 6;
+    }
+    else{
+    for (i = 0; i < 1977 - y; i++){
+      defference_days += daysInYear(i + y);
+      // console.log(i+y);
+    }
+    defference_days -= dayOfYear(y, m, d);
+    defference_days += 1;
+    return 6 - defference_days % 7;
+    }
 }
 
 function dayOfWeekAsString(dow){
-  const a = ["日", "月", "火", "水", "木", "金", "土", "日"];
+  const a = ["日", "月", "火", "水", "木", "金", "土", "日", "月", "火", "水", "木", "金"];
   return a[dow];
 }
