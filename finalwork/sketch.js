@@ -3,6 +3,7 @@
 function setup(){
   createCanvas(windowWidth, windowHeight);
   calendar(2021, 11);
+  Fullmoon(2021, 11, 20);
 }
 
 function calendar(y, m){
@@ -22,7 +23,6 @@ function calendar(y, m){
     rect(width + i * width, height * 4, width, height * 5);
     text(dayOfWeekAsString(i), width * 1.4 + i * width, height * 3.75);
   }
-
 // dowの宣言：日曜が0、月曜が1、....
   let dow = 0;
   if(y >= 1977){
@@ -33,7 +33,6 @@ function calendar(y, m){
   }else{
      dow = dayOfWeek(y, m, 1);
   }
-
 // １日の座標 x1, y1
   let x1 = 1.05 * width + (dow - 1) * width;
   let y1 = height * 4.25;
@@ -51,11 +50,10 @@ function calendar(y, m){
     }
     text(d, x1, y1);
   }
-
+// カレンダーの見出し
   textSize(height* 0.5);
   fill(0);
   text(y + " 年 " + m + " 月", width * 1.25, height * 2.25);
-
   let reiwa = y - 2018;
   let heisei = y - 1988;
   let showa = y - 1925;
@@ -69,11 +67,11 @@ function calendar(y, m){
     text("平成 " + heisei + " 年" , width * 1.25, height * 1.75);
   } else if (y >= 1927 && y < 1989 ) {
     text("昭和 " + showa + " 年" , width * 1.25, height * 1.75);
-  }
-
-  else {
+  } else {
     text("かなり前", width * 1.25, height * 1.75);
   }
+
+
 
 }
 
@@ -132,6 +130,36 @@ function dayOfWeek(y, m, d){
     defference_days += 1;
     return 6 - defference_days % 7;
     }
+}
+
+function Fullmoon(y, m, d){
+// base_day = (2020, 11, 30) Then, fullmoon;
+  let defference_days2 = 0;
+  let d_days3 = 0;
+  if(y > 2020){
+    defference_days2 += 31;
+    for(let i = 1; i < y - 2020; i++){
+      defference_days2 += daysInYear(i + 2020);
+    }
+    defference_days2 += dayOfYear(y, m, d);
+  } else if(y == 2020 && m == 12){
+    defference_days2 += d;
+  } else if (y == 2020) {
+    defference_days2 += (dayOfYear(2020, 11, 30) - dayOfYear(y, m, d));
+  } else{
+    defference_days2 += dayOfYear(2020, 11, 30);
+    for(let i = 1; i < 2020 - y; i++){
+      defference_days2 += daysInYear(2020 - i);
+    }
+    defference_days2 += (dayInYear(y) - dayOfYear(y, m, d));
+  }
+//console.log(defference_days2);
+  d_days3 = defference_days2 % 29.5;
+  if(-1 < d_days3 && d_days3 < 1){
+    return 1;
+  } else{
+    return 0;
+  }
 }
 
 function dayOfWeekAsString(dow){
