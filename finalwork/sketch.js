@@ -1,9 +1,9 @@
 // 最終課題を制作しよう
-// テキスト「関数を作る(2) 結果を戻す関数」～「総仕上げ：カレンダーを描画しよう」
+// こだわり機能
+// 暦機能＋基準日より以前のカレンダーにも対応＋満月の日付機能＋日付６段にも対応
 function setup(){
   createCanvas(windowWidth, windowHeight);
-  calendar(2021, 11);
-  Fullmoon(2021, 11, 20);
+  calendar(2021, 12);
 }
 
 function calendar(y, m){
@@ -43,10 +43,18 @@ function calendar(y, m){
       x1 -= width * 7;
       y1 += height;
     }
+// 六段目に日付が行く際に、マス目を増やす
     if(y1 >= height * 9){
       for(let i = 0; i < 7; i++){
         rect(width + width * i, height * 9, width, height);
       }
+    }
+// 満月の日付に目印
+    if(Fullmoon(y, m, d)){
+      push();
+      fill(255, 241, 0);
+      ellipse(x1 + width * 0.45, y1 + height * 0.25, height * 0.5);
+      pop();
     }
     text(d, x1, y1);
   }
@@ -70,8 +78,6 @@ function calendar(y, m){
   } else {
     text("かなり前", width * 1.25, height * 1.75);
   }
-
-
 
 }
 
@@ -151,7 +157,7 @@ function Fullmoon(y, m, d){
     for(let i = 1; i < 2020 - y; i++){
       defference_days2 += daysInYear(2020 - i);
     }
-    defference_days2 += (dayInYear(y) - dayOfYear(y, m, d));
+    defference_days2 += (daysInYear(y) - dayOfYear(y, m, d));
   }
 //console.log(defference_days2);
   d_days3 = defference_days2 % 29.5;
